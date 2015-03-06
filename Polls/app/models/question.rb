@@ -15,17 +15,21 @@ class Question < ActiveRecord::Base
   belongs_to(:poll,
     foreign_key: :poll_id,
     primary_key: :id,
-    class_name: 'Poll')
+    class_name: 'Poll'
+  )
 
   has_many(:answer_choices,
     foreign_key: :question_id,
     primary_key: :id,
-    class_name: 'AnswerChoice')
+    class_name: 'AnswerChoice',
+    dependent: :destroy
+  )
 
   has_many(
     :responses,
     through: :answer_choices,
-    source: :responses
+    source: :responses,
+    dependent: :destroy
   )
 
   def results

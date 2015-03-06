@@ -22,6 +22,8 @@ class Poll < ActiveRecord::Base
   has_many(:questions,
     foreign_key: :poll_id,
     primary_key: :id,
-    class_name: 'Question')
+    class_name: 'Question',
+    dependent: :destroy
+  )
 
 end
